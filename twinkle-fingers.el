@@ -50,6 +50,8 @@
 ;; pressing "C-<backspace>" will clear the entire line of text,
 ;; leaving you free to enter the desired command.
 
+
+
 ;; TODO add a way to input `tf/twinkle-fingers-quit'
 
 
@@ -66,18 +68,21 @@
 
 (add-hook 'twinkle-fingers-hook
 	  (lambda()
-	    (if (and (boundp 'twinkle-fingers)
-		     twinkle-fingers)
+	    (if (and (boundp 'twinkle-fingers) twinkle-fingers)
 		(progn
+		  ;; Run this code when entering twinkle-fingers
 		  (message "Looping")
 		  (tf/capture-command-loop))
+	      ;; Run this code upon exit
 	      (message "Twinkle-fingers mode exited"))))
 
+;; invocation keybindings
+(global-set-key (kbd "C-c <f3>") 'twinkle-fingers)
+(global-set-key (kbd "C-c <f4>") 'tf/twinkle-fingers-quit)
+
+;; twinkle-fingers keybindings
 (define-key tf/keymap (kbd "<return>") 'tf/return)
 (define-key tf/keymap (kbd "C-<backspace>") 'tf/backspace)
-
-(esc-key "C-c <f3>" 'twinkle-fingers)
-(esc-key "C-c <f4>" 'tf/twinkle-fingers-quit)
 
 ;; Non-interactive defuns
 (defun tf/return()
