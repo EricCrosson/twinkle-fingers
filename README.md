@@ -20,5 +20,5 @@ I wouldn't dream of this mode if it weren't for Eldoc mdoe.
 As we all know, pressing a letter key calls the `self-insert-command`,
 which isn't all too useful on its own. As such, if a user presses a
 key correlating to `self-insert-command` inside of `twinkle-fingers`,
-the command entered at point will be `(insert "|")`, which will allow
+the command entered at point will be `(insert |)`, which will allow
 him or her to enter any number of characters desired.

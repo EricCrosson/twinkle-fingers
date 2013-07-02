@@ -119,6 +119,11 @@
 command."
   (let ((cmd (car (last (split-string (describe-key-briefly
 				       (read-key-sequence "")))))))
+    ;; handle the special cases
+    (cond ((string= cmd "self-insert-command")
+	   (setq cmd "insert")))
+
+    ;; Handle quitting, if appropriate
     (if (not (string-match "twinkle-fingers-quit" cmd))
 	(concat "(" cmd " )")
       (tf/twinkle-fingers-quit))))
