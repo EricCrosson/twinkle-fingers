@@ -1,4 +1,4 @@
-;;; twinkle-fingers.el --- Write emacs lisp commands just by pressing keybindings
+;;; twinkle-fingers.el --- Write emacs lisp commands by pressing keybindings
 
 ;; Write emacs lisp commands just by pressing keybindings
 ;; Copyright (C) 2013 Eric Crosson
