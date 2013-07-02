@@ -19,10 +19,13 @@
 ;;; Commentary:
 ;;
 ;; This code allows a user to write emacs lisp code by just pressing
-;; the desired key bindings (and entering the manual arguments.) As
-;; such, I highly recommend the usage of this package with eldoc
-;; mode. It's a snap to set up, see the emacs wiki. This package came
-;; from a desire for something better than stock keyboard macros.
+;; the desired key bindings (and entering the manual arguments.) In
+;; other words, pressing a command key will insert said command as
+;; emacs lisp. The arguments will need to be filled in by the user at
+;; this stage. As such, I highly recommend the usage of this package
+;; with eldoc mode. It's a snap to set up, see the emacs wiki. This
+;; package came from a desire for something better than stock keyboard
+;; macros.
 ;;
 ;; To activate `twinkle-fingers', press C-c <f3>. Now you are ready This
 ;; package came from a desire for something better than stock keyboard macros.to
@@ -51,14 +54,13 @@
 ;; leaving you free to enter the desired command.
 
 
-
 ;; TODO add a way to input `tf/twinkle-fingers-quit'
-
 
 ;;; Version 0.9.0
 
 ;;; Code:
 
+;;;; Variables
 (defvar tf/keymap (make-sparse-keymap))
 
 (define-minor-mode twinkle-fingers
@@ -80,11 +82,27 @@
 (global-set-key (kbd "C-c <f3>") 'twinkle-fingers)
 (global-set-key (kbd "C-c <f4>") 'tf/twinkle-fingers-quit)
 
-;; twinkle-fingers keybindings
+;;;; twinkle-fingers keybindings
+(define-key tf/keymap (kbd "C-j") 'tf/return)
 (define-key tf/keymap (kbd "<return>") 'tf/return)
 (define-key tf/keymap (kbd "C-<backspace>") 'tf/backspace)
 
-;; Non-interactive defuns
+;;;; Interactive defuns
+(defun tf/newline()
+  "RET for `twinkle-fingers'."
+  (interactive)
+  (replace-regexp "[[:space:]]*)" ")" nil
+		  (line-beginning-position) (line-end-position))
+  (end-of-line)
+  (newline)
+  (indent-according-to-mode))
+
+(defun tf/twinkle-fingers-quit()
+  "Quit `twinkle-fingers'."
+  (interactive)
+  (twinkle-fingers -1))
+
+;;;; Non-interactive defuns
 (defun tf/return()
   (interactive)
   (tf/newline)
@@ -112,21 +130,6 @@ command."
     (when command
       (insert command)
       (backward-char))))
-
-;; Interactive defuns
-(defun tf/newline()
-  "RET for `twinkle-fingers'."
-  (interactive)
-  (replace-regexp "[[:space:]]*)" ")" nil
-		  (line-beginning-position) (line-end-position))
-  (end-of-line)
-  (newline)
-  (indent-according-to-mode))
-
-(defun tf/twinkle-fingers-quit()
-  "Quit `twinkle-fingers'."
-  (interactive)
-  (twinkle-fingers -1))
 
 (provide 'twinkle-fingers)
 
