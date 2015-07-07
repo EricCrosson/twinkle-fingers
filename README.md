@@ -1,4 +1,4 @@
-# Twinkle Fingers mode
+# Twinkle Fingers mode [![GNU GPL](http://img.shields.io/:license-gpl3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
 
 This is a mode to provide a simple way to write emacs lisp
 code. Specifically, one can write proper emacs lisp without knowledge
